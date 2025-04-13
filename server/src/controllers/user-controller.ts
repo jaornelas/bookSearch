@@ -1,6 +1,7 @@
 import type { Request, Response } from 'express';
 // import user model
 import User from '../models/User.js';
+
 // import sign token function from auth
 import { signToken } from '../services/auth.js';
 
