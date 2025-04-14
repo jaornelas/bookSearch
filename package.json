@@ -17,6 +17,7 @@
     "concurrently": "^8.2.0"
   },
   "dependencies": {
+    "graphql": "^16.10.0",
     "mongodb": "^6.15.0"
   }
 }
