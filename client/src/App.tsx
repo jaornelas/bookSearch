@@ -1,5 +1,3 @@
-//Boilerplate from M18A25 to set up Apollo Client
-
 import './App.css';
 import { Outlet } from 'react-router-dom';
 import {

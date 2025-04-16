@@ -2,7 +2,7 @@ import type IUserContext from '../interfaces/UserContext.js';
 import type IUserDocument from '../interfaces/UserDocument.js';
 import type IBookInput from '../interfaces/BookInput.js';
 import { User } from '../models/index.js';
-import { signToken, AuthenticationError } from '../services/auth.js';
+import { signToken, AuthenticationError } from '../services/auth-services.js';
 
 const resolvers = {
   Query: {
@@ -17,6 +17,12 @@ const resolvers = {
     },
   },
   Mutation: {
+    addUser: async (_parent: any, args: any): Promise<{ token: string; user: IUserDocument }> => {
+      const user = await User.create(args);
+      const token = signToken(user.username, user.email, user._id);
+            
+      return { token, user };
+    },
     login: async (_parent: any, { email, password }: { email: string; password: string }): Promise<{ token: string; user: IUserDocument }> => {
       const user = await User.findOne({ email });
 
@@ -25,12 +31,6 @@ const resolvers = {
       }
 
       const token = signToken(user.username, user.email, user._id);
-      return { token, user };
-    },
-    addUser: async (_parent: any, args: any): Promise<{ token: string; user: IUserDocument }> => {
-      const user = await User.create(args);
-      const token = signToken(user.username, user.email, user._id);
-            
       return { token, user };
     },
     saveBook: async (_parent: any, { bookData }: { bookData: IBookInput }, context: IUserContext): Promise<IUserDocument | null> => {

@@ -1,5 +1,4 @@
-export default interface IJWTPayload {
-    _id: unknown;
-    username: string;
-  }
-  
+export default interface IJwtPayload {
+  _id: unknown;
+  username: string;
+}
